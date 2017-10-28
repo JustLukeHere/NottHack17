@@ -1,0 +1,25 @@
+{
+  "name": "notthack17",
+  "version": "1.0.0",
+  "description": "Nottingham University 2017 Hackathon",
+  "main": "chat-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jauntum/NottHack17.git"
+  },
+  "keywords": [
+    "Hackathon",
+    "Websocket",
+    "Games",
+    "Multiplayer"
+  ],
+  "author": "Jonathan Marsh <j.r.marsh@ntlworld.com> (jauntum.github.org)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jauntum/NottHack17/issues"
+  },
+  "homepage": "https://github.com/jauntum/NottHack17#readme"
+}
