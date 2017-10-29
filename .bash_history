@@ -85,3 +85,16 @@ ps -aux
 gdb -p 21218
 nvm install 4.7.0
 node server.js
+git add .
+git commit -m 'attempted multiplayer'
+git push
+ls
+ls -la
+git remote
+git remote origin
+git config
+git remotes
+git remote
+git remote origin
+git remote get-url origin
+exit

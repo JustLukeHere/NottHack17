@@ -31,10 +31,10 @@ $( document ).ready(function() {
 		}
 		context.stroke();
 	}
-	function drawPoint(){		
+	function drawPoint(point){		
 		context.beginPath();	
-		context.arc(this.x - camera.x, this.y - camera.y, 10, 0, 2 * Math.PI, false);
-		context.fillStyle = this.colour;
+		context.arc(point.x - camera.x, point.y - camera.y, 10, 0, 2 * Math.PI, false);
+		context.fillStyle = point.colour;
 		context.fill();
 		context.lineWidth = 1;
 		context.strokeStyle = 'black';

@@ -81,17 +81,17 @@ server.listen(8080);
 io.sockets.on('connection', function(client) {
 	init();
 	client.on('disconnect', function() {
-		console.log("Player left");
-		delete players[client];
+		console.log("Player left: ", client.id);
+		delete players[client.id];
 	});
 	client.on('join', function(name, colour) {
-		console.log("Player joined");
-		players[client] = playerCreate(name,colour);
-		players[client].spawn();
-		client.emit('id', players[client], points, players);
+		console.log("Player joined: ",client.id);
+		players[client.id] = playerCreate(name,colour);
+		players[client.id].spawn();
+		client.emit('id', players[client.id], points, players);
 	});
 	client.on('move',function(k){
-		if(players[client])players[client].keys = k;
+		if(players[client.id])players[client.id].keys = k;
 	});
 	function update(){
 		for (var i in players) if (players.hasOwnProperty(i)) {
@@ -107,7 +107,8 @@ io.sockets.on('connection', function(client) {
 						io.sockets.emit('removePoint',index);
 					}
 				});
-				io.sockets.emit('update',players,players[client].x, players[client].y);
+				if(players[client.id])
+					io.sockets.emit('update',players,players[client.id].x, players[client.id].y);
 			}
 		}
 		pointsAdd();
