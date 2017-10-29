@@ -1,10 +1,10 @@
-# Tor state file last generated on 2017-10-29 13:08:56 local time
+# Tor state file last generated on 2017-10-29 13:30:04 local time
 # Other times below are in UTC
 # You *do not* need to edit this file.
 
 EntryGuard relay 38DEFAB54549991C41489E2EEBD7C29C338EC11D DirCache
 EntryGuardAddedBy 38DEFAB54549991C41489E2EEBD7C29C338EC11D 0.2.9.11 2017-10-14 21:34:54
-EntryGuardPathBias 89.000000 86.000000 85.000000 1.000000 0.000000 1.000000
+EntryGuardPathBias 91.000000 88.000000 87.000000 1.000000 0.000000 1.000000
 EntryGuardPathUseBias 3.000000 3.000000
 EntryGuard FastR43 CAAC13954F9010075857AD8629F61DDEFD3EB697 DirCache
 EntryGuardAddedBy CAAC13954F9010075857AD8629F61DDEFD3EB697 0.2.9.11 2017-10-09 18:25:45
@@ -15,11 +15,11 @@ EntryGuardAddedBy A7CC3E2776A344986ABF3A8911031E9702E6155C 0.2.9.11 2017-10-11 1
 EntryGuardPathBias 1.000000 1.000000 1.000000 0.000000 0.000000 0.000000
 BWHistoryReadEnds 2017-10-29 15:30:53
 BWHistoryReadInterval 14400
-BWHistoryReadValues 15724544
+BWHistoryReadValues 15740928
 BWHistoryReadMaxima 815104
 BWHistoryWriteEnds 2017-10-29 15:30:53
 BWHistoryWriteInterval 14400
-BWHistoryWriteValues 5615616
+BWHistoryWriteValues 5638144
 BWHistoryWriteMaxima 254976
 BWHistoryDirReadEnds 2017-10-29 15:30:53
 BWHistoryDirReadInterval 14400
@@ -31,19 +31,19 @@ BWHistoryDirWriteValues 2403328
 BWHistoryDirWriteMaxima 239616
 TorVersion Tor 0.2.9.11 (git-aa8950022562be76)
 LastRotatedOnionKey 2017-10-29 11:30:53
-LastWritten 2017-10-29 13:08:56
-TotalBuildTimes 102
+LastWritten 2017-10-29 13:30:04
+TotalBuildTimes 104
 CircuitBuildTimeBin 175 1
 CircuitBuildTimeBin 225 1
 CircuitBuildTimeBin 375 1
 CircuitBuildTimeBin 575 2
-CircuitBuildTimeBin 625 2
+CircuitBuildTimeBin 625 3
 CircuitBuildTimeBin 675 3
 CircuitBuildTimeBin 725 7
 CircuitBuildTimeBin 775 8
 CircuitBuildTimeBin 825 14
 CircuitBuildTimeBin 875 8
-CircuitBuildTimeBin 925 14
+CircuitBuildTimeBin 925 15
 CircuitBuildTimeBin 975 10
 CircuitBuildTimeBin 1025 7
 CircuitBuildTimeBin 1075 5
