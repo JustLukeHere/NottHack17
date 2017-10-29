@@ -113,6 +113,7 @@ var app = express();
 var path = require('path');
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
+var swearjar = require('swearjar');
 
 app.use(express.static(__dirname + '/node_modules'));  
 app.use(express.static(path.join(__dirname, 'public')));
@@ -130,7 +131,7 @@ io.sockets.on('connection', function(client) {
 	});
 	client.on('join', function(name, colour) {
 		console.log("Player joined: ",client.id);
-		players[client.id] = playerCreate(name,colour);
+		players[client.id] = playerCreate(swearjar.censor(name),colour);
 		players[client.id].spawn();
 		client.emit('id', client.id, points, spikes);
 		client.emit('update',players);

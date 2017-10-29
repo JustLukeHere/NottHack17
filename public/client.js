@@ -127,6 +127,10 @@ $( document ).ready(function() {
 		console.log("Updated players, now drawing");
 		players = pl;
 		
+		var count = 0;
+		for (var i in players)count++;
+		document.getElementById('players').innerHTML  = count+((count==1)?'Player':' Players')+' Online';
+		
 		camera.x = players[me].x - w/2;
 		camera.y = players[me].y - h/2;
 		if(camera.x < world.minx) camera.x = world.minx;

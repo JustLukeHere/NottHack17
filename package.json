@@ -24,6 +24,7 @@
   "homepage": "https://github.com/jauntum/NottHack17#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "swearjar": "^0.2.0"
   }
 }
