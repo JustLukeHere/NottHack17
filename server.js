@@ -3,12 +3,12 @@ var points = [];
 var world = {
 	minx:0,
 	miny:0,
-	maxx:1000,
-	maxy:1000,
+	maxx:3000,
+	maxy:3000,
 	maxpoints:100
 }
 var colours =["lightred","cyan","forestgreen","fuchsia","orange","gold"];
-var w = 500, h = 400;
+var w=1200, h=800;
 
 function pointCreate(){
 	return {
@@ -42,14 +42,23 @@ function playerCreate(name, colour){
 	return {
 		name: name,
 		radius: 25,
-		x: -100,
-		y: -100,
+		x: 50,
+		y: 50,
 		keys: {w: false, a: false, s: false, d: false},
 		colour: colour,
 		spawn: function(){
 			this.radius = 25;
-			this.x = Math.random()*(w-this.radius*2) + this.radius*2;
-			this.y = Math.random()*(h-this.radius*2) + this.radius*2;
+			var valid = false;
+			while(valid==false){
+				valid = true;
+				this.x = Math.random()*(w-this.radius*2) + this.radius*2;
+				this.y = Math.random()*(h-this.radius*2) + this.radius*2;
+				for (var j in players) if (players.hasOwnProperty(j) && players[j]!==this) {
+					if (Math.hypot(players[j].x-this.x, players[j].y-this.y) <= (this.radius + players[j].radius)){
+						valid = false;
+					}
+				}
+			}
 		},
 		move: function(){
 			if(this.y-1>world.miny) if(this.keys.w == true)this.y-=2;
@@ -88,7 +97,8 @@ io.sockets.on('connection', function(client) {
 		console.log("Player joined: ",client.id);
 		players[client.id] = playerCreate(name,colour);
 		players[client.id].spawn();
-		client.emit('id', players[client.id], points, players);
+		client.emit('id', client.id, points);
+		client.emit('update',players);
 	});
 	client.on('move',function(k){
 		if(players[client.id])players[client.id].keys = k;
@@ -100,13 +110,22 @@ io.sockets.on('connection', function(client) {
 			players[i].move();
 			if(players[i].x != playerx || players[i].y != playery){
 				points.forEach(function(item, index, object) {
-					if (Math.hypot(item.x-players[i].x, item.y-players[i].y) <= (item.radius + 20)){
-						hit.radius = toRadius(toMass(hit.radius) + 50); 
+					if (Math.hypot(players[i].x-item.x, players[i].y-item.y) <= (players[i].radius + 20)){
+						players[i].radius = toRadius(toMass(players[i].radius) + 200); 
 						object.splice(index, 1);
-						console.log("Removed point");
 						io.sockets.emit('removePoint',index);
 					}
 				});
+				for (var j in players) if (players.hasOwnProperty(j) && i!=j) {
+					if (Math.hypot(players[i].x-players[j].x, players[i].y-players[j].y) <= (players[i].radius + players[j].radius) && toMass(players[i].radius)*1.2>=toMass(players[j].radius)){
+						players[i].radius = toRadius(toMass(players[i].radius) + toMass(players[j].radius)); 
+						players[j].spawn();
+					}
+					if (Math.hypot(players[j].x-players[i].x, players[j].y-players[i].y) <= (players[i].radius + players[j].radius) && toMass(players[j].radius)*1.2>=toMass(players[i].radius)){
+						players[j].radius = toRadius(toMass(players[i].radius) + toMass(players[j].radius)); 
+						players[i].spawn();
+					}
+				};
 				if(players[client.id])
 					io.sockets.emit('update',players,players[client.id].x, players[client.id].y);
 			}
@@ -115,6 +134,6 @@ io.sockets.on('connection', function(client) {
 	}
 	function init(){
 		if(typeof game_loop != "undefined") clearInterval(game_loop);
-		game_loop = setInterval(update, 16);
+		game_loop = setInterval(update, 15);
 	}
 });

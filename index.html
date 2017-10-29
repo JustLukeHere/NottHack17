@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="./index.css"> 
 		<script src="/socket.io/socket.io.js"></script>  
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
 		<script src="client.js"></script>
 	</head>
 	<body>
@@ -13,8 +14,12 @@
 			Colour:<input type="color" id="colour" value="#FF0000"/>
 			<input type="submit" id="play" value="Play!"/>
 		</form>
-		<canvas width=500 height=400>
+		<canvas width=1200 height=800>
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
+		<script src="luke.js"></script>
+		<script>
+			document.getElementById('name').value = generateName();
+		</script>
 	</body>
 </html>

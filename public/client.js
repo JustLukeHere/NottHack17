@@ -1,8 +1,8 @@
 var world = {
 	minx:0,
 	miny:0,
-	maxx:1000,
-	maxy:1000,
+	maxx:3000,
+	maxy:3000,
 	maxpoints:100
 }
 var camera = {
@@ -11,7 +11,7 @@ var camera = {
 };
 var players = {};
 var points = [];
-var w = 500, h = 400;
+var w = 1200, h = 800;
 var me = null, keys = {w:false,a:false,s:false,d:false};
 
 $( document ).ready(function() {
@@ -49,19 +49,22 @@ $( document ).ready(function() {
 		context.strokeStyle = 'black';
 		context.stroke();	
 		
+		var textheight = player.radius-18;
+		if (textheight < 18) textheight = 18;
+		if (textheight > 32) textheight = 32;
 		context.textAlign="center"; 
 		context.textBaseline="middle";
-		context.font = "18px Sans-serif"
+		context.font = textheight+"px Sans-serif";
 		context.lineWidth = 3;
 		context.strokeText(player.name, player.x - camera.x, player.y - camera.y);
 		context.fillStyle = 'white';
 		context.fillText(player.name, player.x - camera.x, player.y - camera.y);
 
-		context.font = "8px Sans-serif"
+		context.font = textheight/2+"px Sans-serif";
 		context.lineWidth = 2;
-		context.strokeText(Math.ceil(player.radius), player.x - camera.x, player.y - camera.y - 15);
+		context.strokeText(Math.ceil(player.radius), player.x - camera.x, player.y - camera.y - textheight);
 		context.fillStyle = 'white';
-		context.fillText(Math.ceil(player.radius), player.x - camera.x, player.y - camera.y - 15);
+		context.fillText(Math.ceil(player.radius), player.x - camera.x, player.y - camera.y - textheight);
 	}
 
 	var socket = io.connect('/');
@@ -94,25 +97,25 @@ $( document ).ready(function() {
 	socket.on('removePoint', function(index){
 		points.splice(index, 1);
 	});
-	socket.on('id', function(id,po,pl){
-		console.log("Recieved id and points");;
+	socket.on('id', function(id,po){
+		console.log("Recieved id and points");
+		me = id;
 		points = po;
-		players = pl;
 	});
-	socket.on('update', function(pl, mex, mey){
+	socket.on('update', function(pl){
 		console.log("Updated players, now drawing");
 		players = pl;
+		
+		camera.x = players[me].x - w/2;
+		camera.y = players[me].y - h/2;
+		if(camera.x < world.minx) camera.x = world.minx;
+		if(camera.y < world.miny) camera.y = world.miny;
+		if(camera.x+w > world.maxx) camera.x = world.maxx-w;
+		if(camera.y+h > world.maxy) camera.y = world.maxy-h;
 		
 		context.clearRect(0,0,w,h);
 		grid();
 		for (var i in points) if (points.hasOwnProperty(i)) {drawPoint(points[i]);};
 		for (var i in players) if (players.hasOwnProperty(i)) {drawPlayer(players[i]);};
-
-		camera.x = mex - w/2;
-		camera.y = mey - h/2;
-		if(camera.x < world.minx) camera.x = world.minx;
-		if(camera.y < world.miny) camera.y = world.miny;
-		if(camera.x+w > world.maxx) camera.x = world.maxx-w;
-		if(camera.y+h > world.maxy) camera.y = world.maxy-h;
 	});
 });
