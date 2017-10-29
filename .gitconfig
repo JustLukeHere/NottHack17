@@ -1,3 +1,5 @@
 [user]
 	email = j.r.marsh@ntlworld.com
 	name = Jonathan Marsh
+[push]
+	default = simple

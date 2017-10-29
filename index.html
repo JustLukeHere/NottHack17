@@ -2,20 +2,19 @@
 <html lang="en">
 	<head>
 		<title>Game</title>
-		<link rel="stylesheet" type="text/css" href="index.css"> 
+		<link rel="stylesheet" type="text/css" href="./index.css"> 
 		<script src="/socket.io/socket.io.js"></script>  
-		<script src="client.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="client.js"></script>
 	</head>
 	<body>
-		<div>
-			Name: <input type="text" id="name"/>
-			Colour:<input type="color" id="colour"/>
+		<form> 
+			Name: <input type="text" id="name" value="Player"/>
+			Colour:<input type="color" id="colour" value="#FF0000"/>
 			<input type="submit" id="play" value="Play!"/>
-		</div>
+		</form>
 		<canvas width=500 height=400>
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
-		<script src="index.js"></script>
 	</body>
 </html>
