@@ -18,3 +18,8 @@ Please note however, that the server does not crash and the client does not erro
 
 Now that the hackathon is finished I will branch it and move more to the client side to lower the strain on the server.
 I also plan to add a chat system and bring in agar.io's more complex features such as splitting, merging, and mass ejection.
+
+
+
+
+A simple, but fully functional, agar.io clone. Incredibly intense on server CPU, very little memory used. This was the state of the project when it was presented.
