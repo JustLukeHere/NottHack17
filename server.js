@@ -46,7 +46,7 @@ function pointCreate(){
 	};
 }
 function pointsAdd(){
-	if(Math.random()*100 > 80){
+	if(Math.random()*100 > 90 && points.length<100){
 		var newpoint = pointCreate(), attempts = 0, valid = false;
 		while(valid=false && attempts < 5){
 			attempts++;
@@ -83,6 +83,11 @@ function playerCreate(name, colour){
 				this.y = Math.random()*(h-this.radius*2) + this.radius*2;
 				for (var j in players) if (players.hasOwnProperty(j) && players[j]!==this) {
 					if (Math.hypot(players[j].x-this.x, players[j].y-this.y) <= (this.radius + players[j].radius)){
+						valid = false;
+					}
+				}
+				for (var j in spikes) if (spikes.hasOwnProperty(j) && spikes[j]!==this) {
+					if (Math.hypot(spikes[j].x-this.x, spikes[j].y-this.y) <= (this.radius + 15)){
 						valid = false;
 					}
 				}

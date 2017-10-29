@@ -1,39 +1,50 @@
-# Tor state file last generated on 2017-10-29 11:31:49 local time
+# Tor state file last generated on 2017-10-29 11:49:50 local time
 # Other times below are in UTC
 # You *do not* need to edit this file.
 
 EntryGuard relay 38DEFAB54549991C41489E2EEBD7C29C338EC11D DirCache
 EntryGuardAddedBy 38DEFAB54549991C41489E2EEBD7C29C338EC11D 0.2.9.11 2017-10-14 21:34:54
-EntryGuardPathBias 6.000000 5.000000 5.000000 0.000000 0.000000 0.000000
+EntryGuardPathBias 52.000000 50.000000 50.000000 0.000000 0.000000 1.000000
+EntryGuardPathUseBias 3.000000 3.000000
 EntryGuard FastR43 CAAC13954F9010075857AD8629F61DDEFD3EB697 DirCache
 EntryGuardAddedBy CAAC13954F9010075857AD8629F61DDEFD3EB697 0.2.9.11 2017-10-09 18:25:45
 EntryGuard MarySomerville A7CC3E2776A344986ABF3A8911031E9702E6155C DirCache
 EntryGuardAddedBy A7CC3E2776A344986ABF3A8911031E9702E6155C 0.2.9.11 2017-10-11 17:14:44
 BWHistoryReadEnds 2017-10-29 15:30:53
 BWHistoryReadInterval 14400
-BWHistoryReadValues 11920384
+BWHistoryReadValues 13810688
 BWHistoryReadMaxima 815104
 BWHistoryWriteEnds 2017-10-29 15:30:53
 BWHistoryWriteInterval 14400
-BWHistoryWriteValues 1554432
-BWHistoryWriteMaxima 67584
+BWHistoryWriteValues 5374976
+BWHistoryWriteMaxima 254976
 BWHistoryDirReadEnds 2017-10-29 15:30:53
 BWHistoryDirReadInterval 14400
-BWHistoryDirReadValues 0
-BWHistoryDirReadMaxima 0
+BWHistoryDirReadValues 290816
+BWHistoryDirReadMaxima 28672
 BWHistoryDirWriteEnds 2017-10-29 15:30:53
 BWHistoryDirWriteInterval 14400
-BWHistoryDirWriteValues 0
-BWHistoryDirWriteMaxima 0
+BWHistoryDirWriteValues 2403328
+BWHistoryDirWriteMaxima 239616
 TorVersion Tor 0.2.9.11 (git-aa8950022562be76)
 LastRotatedOnionKey 2017-10-29 11:30:53
-LastWritten 2017-10-29 11:31:49
-TotalBuildTimes 10
-CircuitBuildTimeBin 725 1
-CircuitBuildTimeBin 825 1
-CircuitBuildTimeBin 925 1
-CircuitBuildTimeBin 975 1
-CircuitBuildTimeBin 1075 1
+LastWritten 2017-10-29 11:49:50
+TotalBuildTimes 63
+CircuitBuildTimeBin 725 5
+CircuitBuildTimeBin 775 3
+CircuitBuildTimeBin 825 10
+CircuitBuildTimeBin 875 6
+CircuitBuildTimeBin 925 9
+CircuitBuildTimeBin 975 8
+CircuitBuildTimeBin 1025 5
+CircuitBuildTimeBin 1075 4
 CircuitBuildTimeBin 1125 2
-CircuitBuildTimeBin 1225 2
+CircuitBuildTimeBin 1175 1
+CircuitBuildTimeBin 1225 3
+CircuitBuildTimeBin 1275 1
+CircuitBuildTimeBin 1325 1
+CircuitBuildTimeBin 1475 1
+CircuitBuildTimeBin 1525 1
 CircuitBuildTimeBin 1575 1
+CircuitBuildTimeBin 1625 1
+CircuitBuildTimeBin 1725 1

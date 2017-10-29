@@ -1,5 +1,5 @@
 SocksPort 0
-ORPort auto
+ORPort 443
 RunAsDaemon 1
 BridgeRelay 1
 Exitpolicy reject *:*
