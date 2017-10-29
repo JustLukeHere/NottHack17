@@ -14,12 +14,13 @@
 			Colour:<input type="color" id="colour" value="#FF0000"/>
 			<input type="submit" id="play" value="Play!"/>
 		</form>
-		<canvas width=1200 height=800>
+		<canvas width=500 height=400>
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
 		<script src="luke.js"></script>
 		<script>
 			document.getElementById('name').value = generateName();
+			document.getElementById('colour').value = generateColour();
 		</script>
 	</body>
 </html>

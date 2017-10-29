@@ -1,0 +1,5 @@
+SocksPort 0
+ORPort auto
+RunAsDaemon 1
+BridgeRelay 1
+Exitpolicy reject *:*

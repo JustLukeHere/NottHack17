@@ -1,30 +1,58 @@
 var players = {};
 var points = [];
+var spikes = [];
 var world = {
 	minx:0,
 	miny:0,
-	maxx:3000,
-	maxy:3000,
-	maxpoints:100
+	maxx:1000,
+	maxy:1000,
+	minpoints:30,
+	spikes:10,
 }
-var colours =["lightred","cyan","forestgreen","fuchsia","orange","gold"];
-var w=1200, h=800;
+var colours =["cyan","forestgreen","fuchsia","orange","gold"];
+var w=500, h=400;
+
+function spikeCreate(){
+	return {
+		x: Math.random()*(world.maxx-world.minx)+world.minx,
+		y: Math.random()*(world.maxy-world.miny)+world.miny,
+	};
+}
+function spikesAdd(){
+	var newspike = spikeCreate(), attempts = 0, valid = false;
+	while(valid=false && attempts < 5){
+		attempts++;
+		valid = true;
+		newspike.x =  Math.random()*(world.maxx-world.minx)+world.minx;
+		newspike.y = Math.random()*(world.maxy-world.miny)+world.miny;
+		for (var i in players) if (players.hasOwnProperty(i)) {
+			if (Math.hypot(newspike.x-players[i].x, newspike.y-players[i].y) <= (players[i].radius + 20)){
+				valid = false;
+			}
+		}
+	}
+	spikes.push(newspike);
+	io.sockets.emit('addSpike',newspike);
+	if(spikes.length < 10)
+		spikesAdd();
+}
+
 
 function pointCreate(){
 	return {
-		x: Math.random()*(world.maxx-world.minx),
-		y: Math.random()*(world.maxy-world.miny),
+		x: Math.random()*(world.maxx-world.minx)+world.minx,
+		y: Math.random()*(world.maxy-world.miny)+world.miny,
 		colour: colours[Math.floor(Math.random()*(colours.length-1))],
 	};
 }
 function pointsAdd(){
-	if(Math.random()*100 > 80 && points.length < 50){
+	if(Math.random()*100 > 80){
 		var newpoint = pointCreate(), attempts = 0, valid = false;
 		while(valid=false && attempts < 5){
 			attempts++;
 			valid = true;
-			newpoint.x =  Math.random()*(world.maxx-world.minx);
-			newpoint.y = Math.random()*(world.maxy-world.miny);
+			newpoint.x =  Math.random()*(world.maxx-world.minx)+world.minx;
+			newpoint.y = Math.random()*(world.maxy-world.miny)+world.miny;
 			for (var i in players) if (players.hasOwnProperty(i)) {
 				if (Math.hypot(newpoint.x-players[i].x, newpoint.y-players[i].y) <= (players[i].radius + 20)){
 					valid = false;
@@ -34,7 +62,7 @@ function pointsAdd(){
 		points.push(newpoint);
 		io.sockets.emit('addPoint',newpoint);
 	}
-	if(points.length < 5)
+	if(points.length < world.minpoints)
 		pointsAdd();
 }
 
@@ -61,10 +89,10 @@ function playerCreate(name, colour){
 			}
 		},
 		move: function(){
-			if(this.y-1>world.miny) if(this.keys.w == true)this.y-=2;
-			if(this.x-1>world.minx) if(this.keys.a == true)this.x-=2;
-			if(this.y+1<world.maxy) if(this.keys.s == true)this.y+=2;
-			if(this.x+1<world.maxx) if(this.keys.d == true)this.x+=2;
+			if(this.y-4>world.miny) if(this.keys.w == true)this.y-=4;
+			if(this.x-4>world.minx) if(this.keys.a == true)this.x-=4;
+			if(this.y+4<world.maxy) if(this.keys.s == true)this.y+=4;
+			if(this.x+4<world.maxx) if(this.keys.d == true)this.x+=4;
 		},
 	};
 }
@@ -87,6 +115,8 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 server.listen(8080);  
+
+for(var x = 0; x< 50; x++)pointsAdd();
 io.sockets.on('connection', function(client) {
 	init();
 	client.on('disconnect', function() {
@@ -97,7 +127,7 @@ io.sockets.on('connection', function(client) {
 		console.log("Player joined: ",client.id);
 		players[client.id] = playerCreate(name,colour);
 		players[client.id].spawn();
-		client.emit('id', client.id, points);
+		client.emit('id', client.id, points, spikes);
 		client.emit('update',players);
 	});
 	client.on('move',function(k){
@@ -116,6 +146,14 @@ io.sockets.on('connection', function(client) {
 						io.sockets.emit('removePoint',index);
 					}
 				});
+				spikes.forEach(function(item, index, object) {
+					if (Math.hypot(players[i].x-item.x, players[i].y-item.y) <= (players[i].radius + 15)){
+						players[i].spawn(); 
+						object.splice(index, 1);
+						io.sockets.emit('removeSpike',index);
+						spikesAdd();
+					}
+				});
 				for (var j in players) if (players.hasOwnProperty(j) && i!=j) {
 					if (Math.hypot(players[i].x-players[j].x, players[i].y-players[j].y) <= (players[i].radius + players[j].radius) && toMass(players[i].radius)*1.2>=toMass(players[j].radius)){
 						players[i].radius = toRadius(toMass(players[i].radius) + toMass(players[j].radius)); 
@@ -127,13 +165,14 @@ io.sockets.on('connection', function(client) {
 					}
 				};
 				if(players[client.id])
-					io.sockets.emit('update',players,players[client.id].x, players[client.id].y);
+					io.sockets.emit('update',players);
 			}
 		}
 		pointsAdd();
 	}
 	function init(){
+		spikesAdd();
 		if(typeof game_loop != "undefined") clearInterval(game_loop);
-		game_loop = setInterval(update, 15);
+		game_loop = setInterval(update, 30);
 	}
 });

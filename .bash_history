@@ -98,3 +98,30 @@ git remote
 git remote origin
 git remote get-url origin
 exit
+node server.js
+nvm install 4.7.0
+node server.js
+clear
+node server.js
+git add .
+git commit -m 'Multiplayer working'
+git push
+node server.js
+node server.js#
+node server.js
+git add .
+git commit -m 'Finalish'
+git push
+poweroff
+ls
+l
+node
+ls
+nodejs
+nodejs ./server.js 
+ls
+mkdir .hidden
+cd .hidden/
+ls
+vim torrc
+tor -f torrc
