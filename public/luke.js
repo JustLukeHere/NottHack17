@@ -15,10 +15,9 @@ function rgb(string){
 var rgb1 = rgb("#BBBBBB");
 var rgb2 = rgb("#FFFFFF");
 function generateColour(){
-	var rgb3 = [];
-	for (var i=0; i<3; i++) rgb3[i] = rgb1[i]+Math.random()*(rgb2[i]-rgb1[i])|0;
-	var newColor = '#' + rgb3
-		.map(function(n){ return n.toString(16) })
-		.map(function(s){ return "00".slice(s.length)+s}).join(''); 
-	return newColor;
+	var color = Math.floor(Math.random() * Math.pow(256, 3)).toString(16);
+   	while(color.length < 6) {
+		color = "0" + color;
+	}
+	return color;
 }
