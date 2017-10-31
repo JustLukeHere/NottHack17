@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
+		<script src="luke.js"></script>
 		<title>Game</title>
 		<link rel="stylesheet" type="text/css" href="./index.css"> 
 		<script src="/socket.io/socket.io.js"></script>  
@@ -21,7 +22,7 @@
 				<input type="submit" id="play" value="Play!"/>
 			</form>
 		</div>
-		<script src="luke.js"></script>
+
 		<script>
 			document.getElementById('name').value = generateName();
 			document.getElementById('colour').value = generateColour();
